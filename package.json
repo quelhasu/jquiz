@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "commit": "git-cz"
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
@@ -19,6 +20,7 @@
     "@vue/cli-service": "^3.0.0-beta.10",
     "bootstrap": "^4.1.1",
     "commitizen": "^2.10.1",
+    "cz-conventional-changelog": "^2.1.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.13"
