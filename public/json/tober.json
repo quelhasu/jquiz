@@ -1,0 +1,46 @@
+{
+  "title": "Quizz tober",
+  "instruction": "",
+  "mcq": [{
+      "name": "Part 1",
+      "questions": [{
+          "text": "Manger le ?",
+          "type": "input",
+          "answer": ["cul"]
+        },
+        {
+          "text": "Is the tober blameable?",
+          "type": "propal",
+          "propal": [
+            "Yes",
+            "No",
+            "Only for max"
+          ],
+          "answer": [
+            "Only for max"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Part 2",
+      "questions": [{
+          "text": "What's max's nickname?",
+          "type": "input",
+          "answer": ["Mr. Grillon", "Monsieur Grillon", "Tête de bougie"]
+        },
+        {
+          "text": "Is Max dep ?",
+          "type": "propal",
+          "propal": [
+            "Perhaps",
+            "Yeah, like Bert"
+          ],
+          "answer": [
+            "Yeah, like Bert"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,15 +2,29 @@
   <div id="app">
     <h1>Multiple choice questions JSON</h1>
     <div id="selection" v-if="file === ''">
-      <h2>Select a .json file</h2>
-      <div class="input-group">
-        <div class="custom-file">
-          <input id="inputGroupFile01" name='file' :ref="file" type="file" @change="loadJson($event)">
-          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      <div class="card text-center">
+        <div class="card-header text-muted">
+          Upload your quizz
+        </div>
+          <div class="input-group">
+            <div class="custom-file">
+              <input id="inputGroupFile01" name='file' :ref="file" type="file" @change="loadJson($event)">
+              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            </div>
+          </div>
+      </div>
+      <div id="available-quizz">
+        <div class="card text-center">
+          <div class="card-header text-muted">
+            Available quizz
+          </div>
+          <div class="list-group">
+            <a @click="loadFile('tober')" href="#" class="list-group-item list-group-item-action">Tober Quizz</a>
+          </div>
         </div>
       </div>
     </div>
-    <Quizz v-else :json="file" :nbQuestions="nbQuestions"></Quizz>
+    <Quizz v-else :json="file" :nbQuestions="nbQuestions" v-on:back-home="displayHome"></Quizz>
   </div>
 </template>
 
@@ -36,6 +50,14 @@
       // console.log(this.Json.Quizz.length + " -- " + this.nbPart);
     },
     methods: {
+      displayHome: function(){
+        this.file = "";
+      },
+      loadFile: function(filePath){
+        switch(filePath){
+          case 'tober': this.file = require('../public/json/tober.json');
+        }
+      },
       browseFile: function(json) {
         var nb_questions = 0;
         json.mcq.forEach(function(item) {
@@ -71,9 +93,12 @@
     margin-top: 60px;
     margin: 60px 10vw 0 10vw;
   }
+  #available-quizz {
+    padding-top: 50px;
+  }
   /* .card {
-    border-radius: 0 0 0.25em 0.25em;
-  } */
+          border-radius: 0 0 0.25em 0.25em;
+        } */
   .progress {
     border-radius: 0;
   }
