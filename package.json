@@ -13,10 +13,12 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
+    "@metahub/cz-conventional-commit": "^3.0.0",
     "@vue/cli-plugin-babel": "^3.0.0-beta.10",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.10",
     "@vue/cli-service": "^3.0.0-beta.10",
     "bootstrap": "^4.1.1",
+    "commitizen": "^2.10.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.13"
@@ -42,5 +44,15 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "@metahub/cz-conventional-commit",
+      "cz-conventional-commit": {
+        "maxSubjectLength": 72,
+        "bodyLineLength": 100,
+        "emoji": true
+      }
+    }
+  }
 }
