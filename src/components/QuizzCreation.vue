@@ -4,9 +4,9 @@
     <div v-if="next===false">
       <div class="card text-center">
         <div class="card-header">
-          <button class="btn btn-link btn-finish" @click="nexButton">Next</button>
-          <button class="btn btn-link btn-home" @click="backHome">Home</button>
-          <h5 class="card-title text-muted mt-2">Write title and instructions</h5>
+          <button class="btn btn-responsive btn-link btn-finish mr-2" @click="nexButton">Next</button>
+          <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
+          <h5 class="card-title text-muted mt-2">Name your quizz</h5>
         </div>
         <div class="card-body">
           <input v-model="json.title" class="form-control card-text mb-3" placeholder="Quizz title" @keyup.enter="nexButton" />
@@ -19,9 +19,9 @@
       <!-- ADD QUESTION CARD -->
       <div class="card text-center">
         <div class="card-header">
-          <button class="btn btn-outline-success btn-finish" @click="finish">Finish</button>
-          <button class="btn btn-link btn-home" @click="backHome">Home</button>
-          <h5>{{json.title}} quizz</h5>
+          <button class="btn btn-responsive btn-outline-success btn-finish mr-2" @click="finish">Finish</button>
+          <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
+          <h5 class="">{{json.title}} quizz</h5>
           <h6 class="card-subtitle text-muted">Select type and add question/answers</h6>
         </div>
         <div class="card-body">
@@ -52,8 +52,8 @@
           </div>
           <br>
           <div class="btn-group btn-group-toggle" role="group">
-            <button class="btn btn-light" ref="addButton" @click="addQuestion">Add Question</button>
-            <button class="btn btn-light" ref="addPart" @click="addPart">Add Part</button>
+            <button class="btn btn-responsive btn-outline-dark" ref="addButton" @click="addQuestion">Add Question</button>
+            <button class="btn btn-responsive btn-outline-dark" ref="addPart" @click="addPart">Add Part</button>
           </div>
         </div>
         <div class="card-footer text-muted">
@@ -64,10 +64,14 @@
       <br>
       <!-- JSON PREVIEW CARD -->
       <div class="card">
-        <div class="card-header"> JSON Preview </div>
-        <div class=" card-body not-center">
+        <div class="card-header" header-tag="header" role="tabt">
+          <h5 href="#" v-b-toggle.json-preview variant="info">JSON Preview</h5>
+        </div>
+        <b-collapse id="json-preview" accordion="my-accordion" role="tabpanel">
+        <div class="card-body not-center">
           <tree-view :data="json" :options="{maxDepth: 3, rootObjectKey:'Quizz object'}"></tree-view>
         </div>
+        </b-collapse>
       </div>
     </div>
   </div>
@@ -130,7 +134,7 @@
         this.typeQuestion = null;
         this.nbQuestions = 0;
         this.nbPart = 0;
-        this.$refs.inputPart.disabled = false;
+       if(this.$refs.inputPart) this.$refs.inputPart.disabled = false;
       },
       // Donwload the json file when quizz is finished
       finish: function() {
@@ -226,7 +230,6 @@
   .btn-finish {
     position: absolute;
     right: 0;
-    margin-right: 20px;
   }
   .title-input {
     width: 50%;

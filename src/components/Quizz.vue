@@ -3,15 +3,15 @@
     <div v-if="nbPart === -1">
       <Result :score="score" :questions="totalQuestions"></Result>
       <div class="btn-group btn-group-toggle" role="group">
-        <button class="btn btn-dark" @click="backHome">Home</button>
-        <button class="btn btn-light" @click="restart">Restart</button>
+        <button class="btn btn-responsive btn-dark" @click="backHome">Home</button>
+        <button class="btn btn-responsive btn-light" @click="restart">Restart</button>
       </div>
     </div>
     <div v-if="nbPart >= 0">
       <p v-if="json.instructions" >instructions : {{ json.instructions }}</p>
       <div class="card text-center">
         <div class="card-header">
-          <button class="btn btn-link btn-home" @click="backHome">Home</button>
+          <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
           <h4 class="card-title">{{ json.title }} </h4>
           <h5 class="card-subtitle text-muted">{{ json.quizz[nbPart].name }}</h5>
         </div>
@@ -29,8 +29,8 @@
           </div>
           <br>
           <div class="btn-group btn-group-toggle" role="group">
-            <button class="btn btn-primary" ref="verify_button" @click="verify">Verify</button>
-            <button class="btn btn-primary" ref="next_button" disabled @click="next">Next</button>
+            <button class="btn btn-responsive btn-primary" ref="verify_button" @click="verify">Verify</button>
+            <button class="btn btn-responsive btn-primary" ref="next_button" disabled @click="next">Next</button>
           </div>
         </div>
         <div v-show="verifyButton" class="card-footer text-muted">
@@ -47,6 +47,7 @@
   import 'bootstrap-vue/dist/bootstrap-vue.css';
   import Vue from 'vue'
   import BootstrapVue from 'bootstrap-vue';
+// import func from './vue-temp/vue-editor-bridge';
   Vue.use(BootstrapVue);
   export default {
     name: 'Quizz',
