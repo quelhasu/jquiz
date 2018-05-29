@@ -1,5 +1,5 @@
 <template>
-  <div v-if="json" class="mcq">
+  <div v-if="json" class="quizz">
     <div v-if="nbPart === -1">
       <Result :score="score" :questions="totalQuestions"></Result>
       <div class="btn-group btn-group-toggle" role="group">
@@ -8,33 +8,33 @@
       </div>
     </div>
     <div v-if="nbPart >= 0">
-      <h2>{{ json.title }} </h2>
-      <p v-if="json.instruction" >instructions : {{ json.instruction }}</p>
+      <p v-if="json.instructions" >instructions : {{ json.instructions }}</p>
       <div class="card text-center">
-        <div class="card-header text-muted">
-          {{ json.mcq[nbPart].name }}
+        <div class="card-header">
+          <button class="btn btn-link btn-home" @click="backHome">Home</button>
+          <h4 class="card-title">{{ json.title }} </h4>
+          <h5 class="card-subtitle text-muted">{{ json.quizz[nbPart].name }}</h5>
         </div>
         <b-progress height="2px" :value="passedQuestions" :max="nbQuestions"></b-progress>
         <div class="card-body">
-          <h5 class="card-title">{{ json.mcq[nbPart].questions[nbQuestion].text }}</h5>
-          <div v-if="json.mcq[nbPart].questions[nbQuestion].type === 'input'">
+          <h5 class="card-title">{{ json.quizz[nbPart].questions[nbQuestion].text }}</h5>
+          <div v-if="json.quizz[nbPart].questions[nbQuestion].type === 'input'">
             <input class="form-control card-text" placeholder="Answer" v-model="input_answer" @keyup.enter="verify" id="inputAnswer" ref="inputAnswer" type="text" name="answer" required/>
           </div>
-          <div v-if="json.mcq[nbPart].questions[nbQuestion].type === 'propal'">
-            <div v-for="(propal, index) in json.mcq[nbPart].questions[nbQuestion].propal" :key="propal">
-              <input class="radio card-text" type="radio" @keyup.enter="verify" :value="propal" id="propal" v-model="selected" @click="uncheck(propal)" />
-              <label :for="propal" :ref="propal">{{ propal }}</label>
+          <div v-if="json.quizz[nbPart].questions[nbQuestion].type === 'radio'">
+            <div v-for="(radio, index) in json.quizz[nbPart].questions[nbQuestion].propal" :key="radio">
+              <input class="radio card-text" type="radio" @keyup.enter="verify" :value="radio" id="radio" v-model="selected" @click="uncheck(radio)" />
+              <label :for="radio" :ref="radio">{{ radio }}</label>
             </div>
           </div>
           <br>
           <div class="btn-group btn-group-toggle" role="group">
-            <button class="btn btn-dark left" @click="backHome">Home</button>
             <button class="btn btn-primary" ref="verify_button" @click="verify">Verify</button>
             <button class="btn btn-primary" ref="next_button" disabled @click="next">Next</button>
           </div>
         </div>
         <div v-show="verifyButton" class="card-footer text-muted">
-          <span style="color: green;">{{ answer }}</span>
+          <span style="color: green;">{{ answers }}</span>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
   import BootstrapVue from 'bootstrap-vue';
   Vue.use(BootstrapVue);
   export default {
-    name: 'Mcq',
+    name: 'Quizz',
     components: {
       Result,
     },
@@ -64,7 +64,7 @@
         nbPart: 0,
         nbQuestion: 0,
         input_answer: '',
-        answer: "",
+        answers: "",
         list: ['one', 'two', 'three'],
         selected: "",
         previousSelected: "",
@@ -93,7 +93,7 @@
         if (this.input_answer) {
           Ok = true;
           for (var i in answers) {
-            if (answers[i].toUpperCase() === this.input_answer.toUpperCase()) {
+            if (answers[i].replace(/\s/g, "").toUpperCase() === this.input_answer.replace(/\s/g, "").toUpperCase()) {
               this.goodAnswer = true;
               break;
             }
@@ -115,7 +115,7 @@
         if (this.selected) {
           Ok = true;
           for (var i in answers) {
-            if (answers[i].toUpperCase() === this.selected.toUpperCase()) {
+            if (answers[i].replace(/\s/g, "").toUpperCase() === this.selected.replace(/\s/g, "").toUpperCase()) {
               this.goodAnswer = true;
               break;
             }
@@ -128,8 +128,8 @@
         return Ok;
       },
       verify: function() {
-        var answers = this.json.mcq[this.nbPart].questions[this.nbQuestion].answer;
-        var type = this.json.mcq[this.nbPart].questions[this.nbQuestion].type;
+        var answers = this.json.quizz[this.nbPart].questions[this.nbQuestion].answers;
+        var type = this.json.quizz[this.nbPart].questions[this.nbQuestion].type;
         var verifyOK = false;
         if (type === 'input') verifyOK = this.verifyInputAnswer(answers);
         else verifyOK = this.verifyRadioAnswer(answers);
@@ -138,7 +138,7 @@
           this.verifyButton = true;
           this.$refs.verify_button.disabled = true;
           this.$refs.next_button.disabled = false;
-          this.answer = this.json.mcq[this.nbPart].questions[this.nbQuestion].answer.toString();
+          this.answers = this.json.quizz[this.nbPart].questions[this.nbQuestion].answers.toString();
         }
       },
       next: function() {
@@ -155,12 +155,12 @@
         this.$refs.verify_button.disabled = false;
         this.$refs.next_button.disabled = true;
         this.nbQuestion++;
-        if (this.nbQuestion === this.json.mcq[this.nbPart].questions.length) {
+        if (this.nbQuestion === this.json.quizz[this.nbPart].questions.length) {
           this.nbQuestion = 0;
-          this.totalQuestions += this.json.mcq[this.nbPart].questions.length;
+          this.totalQuestions += this.json.quizz[this.nbPart].questions.length;
           this.nbPart++;
         }
-        if (this.nbPart === this.json.mcq.length) {
+        if (this.nbPart === this.json.quizz.length) {
           this.nbPart = -1;
         }
       },

@@ -1,22 +1,22 @@
 {
   "title": "Quizz tober",
-  "instruction": "",
-  "mcq": [{
+  "instructions": "",
+  "quizz": [{
       "name": "Part 1",
       "questions": [{
           "text": "Manger le ?",
           "type": "input",
-          "answer": ["cul"]
+          "answers": ["cul"]
         },
         {
           "text": "Is the tober blameable?",
-          "type": "propal",
+          "type": "radio",
           "propal": [
             "Yes",
             "No",
             "Only for max"
           ],
-          "answer": [
+          "answers": [
             "Only for max"
           ]
         }
@@ -27,16 +27,16 @@
       "questions": [{
           "text": "What's max's nickname?",
           "type": "input",
-          "answer": ["Mr. Grillon", "Monsieur Grillon", "Tête de bougie"]
+          "answers": ["Mr. Grillon", "Monsieur Grillon", "Tête de bougie"]
         },
         {
           "text": "Is Max dep ?",
-          "type": "propal",
+          "type": "radio",
           "propal": [
             "Perhaps",
             "Yeah, like Bert"
           ],
-          "answer": [
+          "answers": [
             "Yeah, like Bert"
           ]
         }
