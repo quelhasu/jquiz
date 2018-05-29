@@ -1,18 +1,26 @@
 <template>
   <div id="app">
     <h1>Multiple choice questions JSON</h1>
-    <div id="selection" v-if="file === ''">
+    <!-- MAIN MENU -->
+    <div id="selection" v-if="file === '' && !quizzCreation">
+      <!-- QUIZZ CREATE/UPLOAD OPTION -->
       <div class="card text-center">
         <div class="card-header text-muted">
-          Upload your quizz
+          Upload or create your quizz
         </div>
-          <div class="input-group">
+        <div style="display:flex;" >
+          <div class="btn-group flex-item" role="group" aria-label="First group">
+            <button @click="quizzCreation = true" style="border-radius: 0.25em 0 0 0.25em;" type="button" class="btn btn-outline-light full-width">Create quizz</button>
+          </div>
+          <div class="input-group flex-item">
             <div class="custom-file">
               <input id="inputGroupFile01" name='file' :ref="file" type="file" @change="loadJson($event)">
-              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              <label style="padding-right: 25%; border-radius: 0 0.25em 0.25em 0;" class="custom-file-label" for="inputGroupFile01">Choose file</label>
             </div>
           </div>
+        </div>
       </div>
+      <!-- AVAILABLE QUIZZ -->
       <div id="available-quizz">
         <div class="card text-center">
           <div class="card-header text-muted">
@@ -24,38 +32,48 @@
         </div>
       </div>
     </div>
+    <!-- QUIZZ -->
     <Quizz v-else :json="file" :nbQuestions="nbQuestions" v-on:back-home="displayHome"></Quizz>
+    <!-- CREATION QUIZZ -->
+    <QuizzCreation v-show="quizzCreation" v-on:back-home="displayHome"></QuizzCreation>
   </div>
 </template>
 
 <script>
   import Quizz from './components/Quizz.vue';
+  import QuizzCreation from './components/QuizzCreation.vue';
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import './css/mobile.css';
   import Vue from 'vue'
   import BootstrapVue from 'bootstrap-vue';
+
   Vue.use(BootstrapVue);
   export default {
     name: 'app',
     components: {
-      Quizz
+      Quizz,
+      QuizzCreation
     },
     data() {
       return {
         file: "",
         nbQuestions: 0,
+        quizzCreation: false
       }
     },
     mounted: function() {
       // console.log(this.Json.Quizz.length + " -- " + this.nbPart);
     },
     methods: {
-      displayHome: function(){
+      displayHome: function() {
         this.file = "";
+        this.quizzCreation = false;
       },
-      loadFile: function(filePath){
-        switch(filePath){
-          case 'tober': this.file = require('../public/json/tober.json');
+      loadFile: function(filePath) {
+        switch (filePath) {
+          case 'tober':
+            this.file = require('../public/json/tober.json');
         }
       },
       browseFile: function(json) {
@@ -97,9 +115,27 @@
     padding-top: 50px;
   }
   /* .card {
-          border-radius: 0 0 0.25em 0.25em;
-        } */
+            border-radius: 0 0 0.25em 0.25em;
+          } */
   .progress {
     border-radius: 0;
+  }
+
+  .flex-item{
+    flex: 1 0 0;
+  }
+
+  .full-width{
+    width: 100%;
+  }
+
+  .btn-outline-light{
+    border: 1px solid #ced4da;
+    color: #495057;
+  }
+    .btn-home{
+    position: absolute;
+    left: 0;
+    margin-left: 20px;
   }
 </style>
