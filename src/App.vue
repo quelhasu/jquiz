@@ -14,7 +14,7 @@
         <div class="card-header text-muted">
           Upload or create your quizz
         </div>
-        <div style="display:flex;">
+        <div class="flexbox">
           <div class="btn-group flex-item" role="group" aria-label="First group">
             <button @click="quizzCreation = true" style="border-radius: 0.25em 0 0 0.25em;" type="button" class="btn btn-outline-light full-width">Create quizz</button>
           </div>
@@ -47,104 +47,108 @@
 </template>
 
 <script>
-  import Quizz from './components/Quizz.vue';
-  import QuizzCreation from './components/QuizzCreation.vue';
-  import 'bootstrap/dist/css/bootstrap.css'
-  import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import './css/mobile.css';
-  import Vue from 'vue'
-  import BootstrapVue from 'bootstrap-vue';
+import Quizz from "./components/Quizz.vue";
+import QuizzCreation from "./components/QuizzCreation.vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import "./css/mobile.css";
+import Vue from "vue";
+import BootstrapVue from "bootstrap-vue";
 
-  Vue.use(BootstrapVue);
-  
-  export default {
-    name: 'app',
-    components: {
-      Quizz,
-      QuizzCreation
+Vue.use(BootstrapVue);
+
+export default {
+  name: "app",
+  components: {
+    Quizz,
+    QuizzCreation
+  },
+  data() {
+    return {
+      file: "",
+      nbQuestions: 0,
+      quizzCreation: false
+    };
+  },
+  mounted: function() {
+    // console.log(this.Json.Quizz.length + " -- " + this.nbPart);
+  },
+  methods: {
+    displayHome: function() {
+      this.file = "";
+      this.quizzCreation = false;
     },
-    data() {
-      return {
-        file: "",
-        nbQuestions: 0,
-        quizzCreation: false
+    loadFile: function(filePath) {
+      switch (filePath) {
+        case "tober":
+          this.file = require("../public/json/tober.json");
       }
     },
-    mounted: function() {
-      // console.log(this.Json.Quizz.length + " -- " + this.nbPart);
+    browseFile: function(json) {
+      var nb_questions = 0;
+      json.quizz.forEach(function(item) {
+        nb_questions += item.questions.length;
+      });
+      this.nbQuestions = nb_questions;
+      console.log(this.nbQuestions);
     },
-    methods: {
-      displayHome: function() {
-        this.file = "";
-        this.quizzCreation = false;
-      },
-      loadFile: function(filePath) {
-        switch (filePath) {
-          case 'tober':
-            this.file = require('../public/json/tober.json');
-        }
-      },
-      browseFile: function(json) {
-        var nb_questions = 0;
-        json.mcq.forEach(function(item) {
-          nb_questions += item.questions.length;
-        });
-        this.nbQuestions = nb_questions;
-      },
-      loadJson: function(event) {
-        var file = event.target.files[0]
-        var reader = new FileReader();
-        var vm = this;
-        if (file.type == "application/json") {
-          reader.onload = function(e) {
-            vm.file = JSON.parse(e.target.result);
-            vm.browseFile(vm.file);
-          };
-          reader.readAsText(file);
-        } else {
-          alert("Pleaser select a .json file");
-        }
+    loadJson: function(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      var vm = this;
+      if (file.type == "application/json") {
+        reader.onload = function(e) {
+          vm.file = JSON.parse(e.target.result);
+          vm.browseFile(vm.file);
+        };
+        reader.readAsText(file);
+      } else {
+        alert("Pleaser select a .json file");
       }
     }
   }
+};
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    /* margin-top: 60px; */
-    /* margin: 0 10vw; */
-  }
-  #content {
-    margin-top: 60px;
-    margin: 0 10vw;
-  }
-  #available-quizz {
-    padding-top: 50px;
-  }
-  /* .card {
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  /* margin-top: 60px; */
+  /* margin: 0 10vw; */
+}
+#content {
+  margin-top: 60px;
+  margin: 0 10vw;
+}
+#available-quizz {
+  padding-top: 50px;
+}
+/* .card {
               border-radius: 0 0 0.25em 0.25em;
             } */
-  .progress {
-    border-radius: 0;
-  }
-  .flex-item {
-    flex: 1 0 0;
-  }
-  .full-width {
-    width: 100%;
-  }
-  .btn-outline-light {
-    border: 1px solid #ced4da;
-    color: #495057;
-  }
-  .btn-home {
-    position: absolute;
-    left: 0;
-  }
-
+.progress {
+  border-radius: 0;
+}
+.flex-item {
+  flex: 1 0 0;
+  width: 100%;
+}
+.full-width {
+  width: 100%;
+}
+.btn-outline-light {
+  border: 1px solid #ced4da;
+  color: #495057;
+}
+.btn-home {
+  position: absolute;
+  left: 0;
+}
+.flexbox {
+  display: flex;
+}
 </style>

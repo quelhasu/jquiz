@@ -78,169 +78,172 @@
 </template>
 
 <script>
-  import 'bootstrap/dist/css/bootstrap.css';
-  import 'bootstrap-vue/dist/bootstrap-vue.css';
-  import Vue from 'vue'
-  import BootstrapVue from 'bootstrap-vue';
-  import TreeView from "vue-json-tree-view"
-  Vue.use(TreeView)
-  Vue.use(BootstrapVue);
-  export default {
-    name: 'QuizzCreation',
-    components: {},
-    props: {},
-    data() {
-      return {
-        json: {
-          title: "",
-          instruction: null,
-          quizz: []
-        },
-        part: {
-          name: null,
-          questions: []
-        },
-        typeQuestion: null,
-        inputTitle: "",
-        question: null,
-        inputAnswers: null,
-        inputProposals: null,
-        next: false,
-        nbQuestions: 0,
-        nbPart: 0,
-        
-      }
-    },
-    watch: {
-      typeQuestion(val) {
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import Vue from "vue";
+import BootstrapVue from "bootstrap-vue";
+import TreeView from "vue-json-tree-view";
+Vue.use(TreeView);
+Vue.use(BootstrapVue);
+export default {
+  name: "QuizzCreation",
+  components: {},
+  props: {},
+  data() {
+    return {
+      json: {
+        title: "",
+        instruction: null,
+        quizz: []
+      },
+      part: {
+        name: null,
+        questions: []
+      },
+      typeQuestion: null,
+      inputTitle: "",
+      question: null,
+      inputAnswers: null,
+      inputProposals: null,
+      next: false,
+      nbQuestions: 0,
+      nbPart: 0
+    };
+  },
+  watch: {
+    typeQuestion(val) {
+      if (val) {
         this.$refs.inputQuestion.disabled = false;
         this.question = "";
         this.answers = "";
-      },
+      }
+    }
+  },
+  methods: {
+    // Set data to their default value
+    resetDate: function() {
+      this.json = {
+        title: "",
+        instruction: null,
+        quizz: []
+      };
+      this.part = {
+        name: null,
+        questions: []
+      };
+      this.next = false;
+      this.typeQuestion = null;
+      this.nbQuestions = 0;
+      this.nbPart = 0;
+      if (this.$refs.inputPart) this.$refs.inputPart.disabled = false;
     },
-    methods: {
-      // Set data to their default value
-      resetDate: function() {
-        this.json = {
-          title: "",
-          instruction: null,
-          quizz: []
-        };
+    // Donwload the json file when quizz is finished
+    finish: function() {
+      // this.download = "data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(this.json));
+      let dataStr = JSON.stringify(this.json);
+      let dataUri =
+        "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+      let exportFileDefaultName = "data.json";
+      let linkElement = document.createElement("a");
+      linkElement.setAttribute("href", dataUri);
+      linkElement.setAttribute("download", exportFileDefaultName);
+      linkElement.click();
+      this.backHome();
+    },
+    // Add part to the JSON object
+    addPart: function() {
+      if (this.part.name != null) {
+        this.$refs.inputPart.disabled = false;
+        this.json.quizz.push(this.part);
         this.part = {
           name: null,
           questions: []
         };
-        this.next = false;
-        this.typeQuestion = null;
-        this.nbQuestions = 0;
-        this.nbPart = 0;
-       if(this.$refs.inputPart) this.$refs.inputPart.disabled = false;
-      },
-      // Donwload the json file when quizz is finished
-      finish: function() {
-        // this.download = "data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(this.json));
-        let dataStr = JSON.stringify(this.json);
-        let dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-        let exportFileDefaultName = 'data.json';
-        let linkElement = document.createElement('a');
-        linkElement.setAttribute('href', dataUri);
-        linkElement.setAttribute('download', exportFileDefaultName);
-        linkElement.click();
-        this.backHome();
-      },
-      // Add part to the JSON object
-      addPart: function() {
-        if (this.part.name != null) {
-          this.$refs.inputPart.disabled = false;
-          this.json.quizz.push(this.part);
-          this.part = {
-            name: null,
-            questions: []
-          };
-          this.nbPart++;
-        } else alert("Please name your part!");
-      },
-      // Change content of the frame when title/instructions have been written
-      nexButton: function() {
-        if (this.json.title != "") this.next = true;
-        else alert("Please, write a title!");
-      },
-      // Return to the main
-      backHome: function() {
-        this.resetDate();
-        this.$emit('back-home');
-      },
-      // Add new question to the JSON object
-      processAddQuestion: function(type) {
-        if (this.question != null && this.inputAnswers != null) {
-          var question = {};
-          var answers = this.inputAnswers.split(',');
-          question.text = this.question;
-          question.type = type;
-          if(type==="radio") question.propal = this.inputProposals.split(',');
-          question.answers = answers;
-          this.part.questions.push(question);
-          this.question = null;
-          this.inputAnswers = null;
-          this.inputProposals = null;
-          return true;
-        } else {
-          alert("Enter a question/answer");
-          return false;
+        this.nbPart++;
+      } else alert("Please name your part!");
+    },
+    // Change content of the frame when title/instructions have been written
+    nexButton: function() {
+      if (this.json.title != "") this.next = true;
+      else alert("Please, write a title!");
+    },
+    // Return to the main
+    backHome: function() {
+      this.resetDate();
+      this.$emit("back-home");
+    },
+    // Add new question to the JSON object
+    processAddQuestion: function(type) {
+      if (this.question != null && this.inputAnswers != null) {
+        var question = {};
+        var answers = this.inputAnswers.split(",");
+        question.text = this.question;
+        question.type = type;
+        if (type === "radio") question.propal = this.inputProposals.split(",");
+        question.answers = answers;
+        this.part.questions.push(question);
+        this.question = null;
+        this.inputAnswers = null;
+        this.inputProposals = null;
+        return true;
+      } else {
+        alert("Enter a question/answer");
+        return false;
+      }
+    },
+    // Verify the input before adding question
+    addQuestion: function() {
+      var questionAdd = false;
+      if (this.inputTitle != "") {
+        this.json.title = this.inputTitle;
+        this.jsonPreview = true;
+      }
+      if (this.typeQuestion != null) {
+        if (this.typeQuestion === "input")
+          questionAdd = this.processAddQuestion("input");
+        if (this.typeQuestion === "radio")
+          questionAdd = this.processAddQuestion("radio");
+        if (questionAdd) {
+          this.$refs.inputPart.disabled = true;
+          this.nbQuestions++;
         }
-      },
-      // Verify the input before adding question
-      addQuestion: function() {
-        var questionAdd = false;
-        if (this.inputTitle != "") {
-          this.json.title = this.inputTitle;
-          this.jsonPreview = true;
-        }
-        if (this.typeQuestion != null) {
-          if (this.typeQuestion === "input") questionAdd = this.processAddQuestion("input");
-          if (this.typeQuestion === "radio") questionAdd = this.processAddQuestion("radio");
-          if (questionAdd) {
-            this.$refs.inputPart.disabled = true;
-            this.nbQuestions++;
-          }
-        } else {
-          alert("Please fill the form before adding!");
-        }
+      } else {
+        alert("Please fill the form before adding!");
       }
     }
   }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h3 {
-    margin: 40px 0 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
-  }
-  .btn-finish {
-    position: absolute;
-    right: 0;
-  }
-  .title-input {
-    width: 50%;
-    margin: auto;
-    text-align: center;
-    background-color: transparent;
-    border-width: 0;
-    border-bottom: 0.5px solid #33333359;
-  }
-  .not-center {
-    text-align: initial !important;
-  }
-  
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+.btn-finish {
+  position: absolute;
+  right: 0;
+}
+.title-input {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  background-color: transparent;
+  border-width: 0;
+  border-bottom: 0.5px solid #33333359;
+}
+.not-center {
+  text-align: initial !important;
+}
 </style>
