@@ -47,7 +47,7 @@
             Available quiz
           </div>
           <div class="list-group">
-            <a @click="loadFile('tober')" href="#" class="list-group-item list-group-item-action">Tober Quiz</a>
+            <a @click="loadFile('example')" href="#" class="list-group-item list-group-item-action">Quiz example</a>
           </div>
         </div>
       </div>
@@ -92,8 +92,8 @@ export default {
     },
     loadFile: function(filePath) {
       switch (filePath) {
-        case "tober":
-          this.file = require("../public/json/tober.json");
+        case "example":
+          this.file = require("../public/json/example.json");
           break;
       }
       this.browseFile(this.file);

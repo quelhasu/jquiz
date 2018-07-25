@@ -1,0 +1,52 @@
+{
+  "title": "Quiz tober",
+  "instructions": "",
+  "quiz": [
+    {
+      "name": "Music",
+      "questions": [
+        {
+          "text": "What is this instrument?",
+          "type": "input",
+          "answers": [
+            "piano"
+          ],
+          "image": "https://images.unsplash.com/photo-1532487360960-a0733d2934eb?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3a1e30268f8ef5e5dd57624a241a64ac&auto=format&fit=crop&w=934&q=80"
+        },
+        {
+          "text": "How many people play a four-handed piano?",
+          "type": "radio",
+          "propal": [
+            "8",
+            "1",
+            "2"
+          ],
+          "answers": [
+            "2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sport",
+      "questions": [
+        {
+          "text": "Which country didn't win the World Cup?",
+          "type": "radio",
+          "image": "https://images.unsplash.com/photo-1527871369852-eb58cb2b54e2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5e2e94705996b10309bc88a058d97cfe&auto=format&fit=crop&w=800&q=60",
+          "propal": [
+            "France",
+            "France",
+            "Belgique",
+            "France",
+            "France",
+            "France"
+          ],
+          "answers": [
+            "Belgique"
+          ]
+        }
+      ]
+    }
+  ]
+}
