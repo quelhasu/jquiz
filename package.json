@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
-    "mathjax": "^2.7.4",
     "vue": "^2.5.16",
     "vue-json-tree-view": "^2.1.4"
   },
