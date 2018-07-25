@@ -6,6 +6,20 @@
       </a>
     </nav>
     <div id="content">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">JQuizz</h1>
+          <p class="lead">Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quizz. </p>
+          <hr class="my-4">
+          <p>Create your own quiz with different types of questions including images or videos. 
+            <br>You can also upload an existing quizz in json format that you have been given or previously saved.
+            <br>For more information on how using this tool, visit the GitHub page.
+          </p>
+          <p class="lead">
+            <a target="_blank" class="btn btn-primary btn-lg" href="https://github.com/quelhasu/jquizz" role="button">Learn more</a>
+          </p>
+        </div>
+      </div>
     <!-- <h1>Multiple choice questions JSON</h1> -->
     <!-- MAIN MENU -->
     <div id="selection" v-if="file === '' && !quizzCreation">
@@ -114,7 +128,7 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
 }
 #content {
