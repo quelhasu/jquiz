@@ -6,6 +6,9 @@
       </a>
     </nav>
     <div id="content">
+    <!-- <h1>Multiple choice questions JSON</h1> -->
+    <!-- MAIN MENU -->
+    <div id="selection" v-if="file === '' && !quizzCreation">
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">JQuizz</h1>
@@ -20,9 +23,6 @@
           </p>
         </div>
       </div>
-    <!-- <h1>Multiple choice questions JSON</h1> -->
-    <!-- MAIN MENU -->
-    <div id="selection" v-if="file === '' && !quizzCreation">
       <!-- QUIZZ CREATE/UPLOAD OPTION -->
       <div class="card text-center">
         <div class="card-header text-muted">
