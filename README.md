@@ -12,16 +12,16 @@ Create your own quiz with different types of questions including images or video
 You can also upload an existing quiz in json format that you have been given or previously saved. 
 
 ## How to use it 
-- [Quizz format](#format)
+- [Quiz format](#format)
 - [Create](#create)
 - [Upload](#upload)
 
-### <a id="format"/> Quizz format
+### <a id="format"/> Quiz format
 A quiz is composed of one or more parts containing questions. Here is an example:
 ```json
 {
-  "title": "Quizz's title",
-  "instructions": "Quizz's instructions",
+  "title": "Quiz's title",
+  "instructions": "Quiz's instructions",
   "quiz": [{
       "name": "Part 1",
       "questions": [{
