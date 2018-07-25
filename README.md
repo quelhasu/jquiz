@@ -1,6 +1,6 @@
-<img src="https://emojipedia-us.s3.amazonaws.com/thumbs/240/mozilla/36/memo_1f4dd.png" align="right" width="80">
+<img src="https://emojipedia-us.s3.amazonaws.com/thumbs/240/mozilla/36/memo_1f4dd.png" align="right" width="100">
 
-# JQuizz
+# JQuiz
 > Lightweight app to read/write quiz with JSON
 
 Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quiz.
