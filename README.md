@@ -1,15 +1,15 @@
 <img src="https://emojipedia-us.s3.amazonaws.com/thumbs/240/mozilla/36/memo_1f4dd.png" align="right" width="80">
 
 # JQuizz
-> Lightweight app to read/write quizz with JSON
+> Lightweight app to read/write quiz with JSON
 
-Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quizz.
+Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quiz.
 
 This tool was created with [Vue](https://vuejs.org/) and [Boostrap](https://getbootstrap.com/).
 
 ## Features
 Create your own quiz with different types of questions including images or videos. 
-You can also upload an existing quizz in json format that you have been given or previously saved. 
+You can also upload an existing quiz in json format that you have been given or previously saved. 
 
 ## How to use it 
 - [Quizz format](#format)
@@ -22,7 +22,7 @@ A quiz is composed of one or more parts containing questions. Here is an example
 {
   "title": "Quizz's title",
   "instructions": "Quizz's instructions",
-  "quizz": [{
+  "quiz": [{
       "name": "Part 1",
       "questions": [{
           "text": "Input question of Part 1",
