@@ -2,35 +2,35 @@
   <div id="app">
     <nav class="navbar sticky-top navbar-dark bg-dark mb-5">
       <a class="navbar-brand" href="#">
-        <img src="./assets/logo-white.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">JQuizz
+        <img src="./assets/logo-white.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">JQuiz
       </a>
     </nav>
     <div id="content">
     <!-- <h1>Multiple choice questions JSON</h1> -->
     <!-- MAIN MENU -->
-    <div id="selection" v-if="file === '' && !quizzCreation">
+    <div id="selection" v-if="file === '' && !quizCreation">
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">JQuizz</h1>
-          <p class="lead">Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quizz. </p>
+          <h1 class="display-4">JQuiz</h1>
+          <p class="lead">Need to practice for an exam or just want to test your friends or whatever..? Do it thanks to this tool which allows you to consult, upload and create your own quiz. </p>
           <hr class="my-4">
           <p>Create your own quiz with different types of questions including images or videos. 
-            <br>You can also upload an existing quizz in json format that you have been given or previously saved.
+            <br>You can also upload an existing quiz in json format that you have been given or previously saved.
             <br>For more information on how using this tool, visit the GitHub page.
           </p>
           <p class="lead">
-            <a target="_blank" class="btn btn-primary btn-lg" href="https://github.com/quelhasu/jquizz" role="button">Learn more</a>
+            <a target="_blank" class="btn btn-primary btn-lg" href="https://github.com/quelhasu/jquiz" role="button">Learn more</a>
           </p>
         </div>
       </div>
       <!-- QUIZZ CREATE/UPLOAD OPTION -->
       <div class="card text-center">
         <div class="card-header text-muted">
-          Upload or create your quizz
+          Upload or create your quiz
         </div>
         <div class="flexbox">
           <div class="btn-group flex-item" role="group" aria-label="First group">
-            <button @click="quizzCreation = true" style="border-radius: 0.25em 0 0 0.25em;" type="button" class="btn btn-outline-light full-width">Create quizz</button>
+            <button @click="quizCreation = true" style="border-radius: 0.25em 0 0 0.25em;" type="button" class="btn btn-outline-light full-width">Create quiz</button>
           </div>
           <div class="input-group flex-item">
             <div class="custom-file">
@@ -41,28 +41,28 @@
         </div>
       </div>
       <!-- AVAILABLE QUIZZ -->
-      <div id="available-quizz">
+      <div id="available-quiz">
         <div class="card text-center">
           <div class="card-header text-muted">
-            Available quizz
+            Available quiz
           </div>
           <div class="list-group">
-            <a @click="loadFile('tober')" href="#" class="list-group-item list-group-item-action">Tober Quizz</a>
+            <a @click="loadFile('tober')" href="#" class="list-group-item list-group-item-action">Tober Quiz</a>
           </div>
         </div>
       </div>
     </div>
     <!-- QUIZZ -->
-    <Quizz v-else :json="file" :nbQuestions="nbQuestions" v-on:back-home="displayHome"></Quizz>
+    <Quiz v-else :json="file" :nbQuestions="nbQuestions" v-on:back-home="displayHome"></Quiz>
     <!-- CREATION QUIZZ -->
-    <QuizzCreation v-show="quizzCreation" v-on:back-home="displayHome"></QuizzCreation>
+    <QuizCreation v-show="quizCreation" v-on:back-home="displayHome"></QuizCreation>
     </div>
   </div>
 </template>
 
 <script>
-import Quizz from "./components/Quizz.vue";
-import QuizzCreation from "./components/QuizzCreation.vue";
+import Quiz from "./components/Quiz.vue";
+import QuizCreation from "./components/QuizCreation.vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./css/mobile.css";
@@ -74,21 +74,21 @@ Vue.use(BootstrapVue);
 export default {
   name: "app",
   components: {
-    Quizz,
-    QuizzCreation
+    Quiz,
+    QuizCreation
   },
   data() {
     return {
       file: "",
       nbQuestions: 0,
-      quizzCreation: false
+      quizCreation: false
     };
   },
   mounted: function() {},
   methods: {
     displayHome: function() {
       this.file = "";
-      this.quizzCreation = false;
+      this.quizCreation = false;
     },
     loadFile: function(filePath) {
       switch (filePath) {
@@ -100,7 +100,7 @@ export default {
     },
     browseFile: function(json) {
       var nb_questions = 0;
-      json.quizz.forEach(function(item) {
+      json.quiz.forEach(function(item) {
         nb_questions += item.questions.length;
       });
       this.nbQuestions = nb_questions;
@@ -135,7 +135,7 @@ export default {
   margin-top: 60px;
   margin: 0 10vw;
 }
-#available-quizz {
+#available-quiz {
   padding-top: 50px;
 }
 .progress {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="json" class="quizz">
+  <div v-if="json" class="quiz">
     <div v-if="nbPart === -1">
       <Result :score="score" :questions="totalQuestions"></Result>
       <div class="btn-group btn-group-toggle" role="group">
@@ -13,20 +13,20 @@
         <div class="card-header">
           <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
           <h4 class="card-title">{{ json.title }} </h4>
-          <h5 class="card-subtitle text-muted">{{ json.quizz[nbPart].name }}</h5>
+          <h5 class="card-subtitle text-muted">{{ json.quiz[nbPart].name }}</h5>
         </div>
         <b-progress height="10px" :value="passedQuestions" :max="nbQuestions"></b-progress>
         <div class="card-body">
-          <div v-if="json.quizz[nbPart].questions[nbQuestion].image">
-            <img class="card-img" :src="json.quizz[nbPart].questions[nbQuestion].image"/>
+          <div v-if="json.quiz[nbPart].questions[nbQuestion].image">
+            <img class="card-img" :src="json.quiz[nbPart].questions[nbQuestion].image"/>
             <br>
           </div>
-          <h5 class="card-title">{{ json.quizz[nbPart].questions[nbQuestion].text }}</h5>
-          <div v-if="json.quizz[nbPart].questions[nbQuestion].type === 'input'">
+          <h5 class="card-title">{{ json.quiz[nbPart].questions[nbQuestion].text }}</h5>
+          <div v-if="json.quiz[nbPart].questions[nbQuestion].type === 'input'">
             <input class="form-control card-text" placeholder="Answer" v-model="input_answer" @keyup.enter="verify" id="inputAnswer" ref="inputAnswer" type="text" name="answer" required/>
           </div>
-          <div v-if="json.quizz[nbPart].questions[nbQuestion].type === 'radio'">
-            <div v-for="(radio, index) in json.quizz[nbPart].questions[nbQuestion].propal" :key="radio">
+          <div v-if="json.quiz[nbPart].questions[nbQuestion].type === 'radio'">
+            <div v-for="(radio, index) in json.quiz[nbPart].questions[nbQuestion].propal" :key="radio">
               <input class="radio card-text" type="radio" @keyup.enter="verify" :value="radio" id="radio" v-model="selected" @click="uncheck(radio)" />
               <label :for="radio" :ref="radio">{{ radio }}</label>
             </div>
@@ -53,7 +53,7 @@ import Vue from "vue";
 import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 export default {
-  name: "Quizz",
+  name: "Quiz",
   components: {
     Result
   },
@@ -138,9 +138,9 @@ export default {
       return Ok;
     },
     verify: function() {
-      var answers = this.json.quizz[this.nbPart].questions[this.nbQuestion]
+      var answers = this.json.quiz[this.nbPart].questions[this.nbQuestion]
         .answers;
-      var type = this.json.quizz[this.nbPart].questions[this.nbQuestion].type;
+      var type = this.json.quiz[this.nbPart].questions[this.nbQuestion].type;
       var verifyOK = false;
       if (type === "input") verifyOK = this.verifyInputAnswer(answers);
       else verifyOK = this.verifyRadioAnswer(answers);
@@ -149,7 +149,7 @@ export default {
         this.verifyButton = true;
         this.$refs.verify_button.disabled = true;
         this.$refs.next_button.disabled = false;
-        this.answers = this.json.quizz[this.nbPart].questions[
+        this.answers = this.json.quiz[this.nbPart].questions[
           this.nbQuestion
         ].answers.toString();
       }
@@ -168,12 +168,12 @@ export default {
       this.$refs.verify_button.disabled = false;
       this.$refs.next_button.disabled = true;
       this.nbQuestion++;
-      if (this.nbQuestion === this.json.quizz[this.nbPart].questions.length) {
+      if (this.nbQuestion === this.json.quiz[this.nbPart].questions.length) {
         this.nbQuestion = 0;
-        this.totalQuestions += this.json.quizz[this.nbPart].questions.length;
+        this.totalQuestions += this.json.quiz[this.nbPart].questions.length;
         this.nbPart++;
       }
-      if (this.nbPart === this.json.quizz.length) {
+      if (this.nbPart === this.json.quiz.length) {
         this.nbPart = -1;
       }
     },
@@ -190,11 +190,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.card-title{
+.card-title {
   margin-top: 10px;
 }
-.card-image{
-  width: 100%
+.card-img {
+  width: 75%;
+}
+.quiz {
+  text-align: center;
 }
 h3 {
   margin: 40px 0 0;

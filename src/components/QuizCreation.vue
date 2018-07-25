@@ -1,15 +1,15 @@
 <template>
-  <div id="quizz-creation">
+  <div id="quiz-creation">
     <!-- TITLE / INSTRUCTION FRAME -->
     <div v-if="next===false">
       <div class="card text-center">
         <div class="card-header">
           <button class="btn btn-responsive btn-link btn-finish mr-2" @click="nexButton">Next</button>
           <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
-          <h5 class="card-title text-muted mt-2">Name your quizz</h5>
+          <h5 class="card-title text-muted mt-2">Name your quiz</h5>
         </div>
         <div class="card-body">
-          <input v-model="json.title" class="form-control card-text mb-3" placeholder="Quizz title" @keyup.enter="nexButton" />
+          <input v-model="json.title" class="form-control card-text mb-3" placeholder="Quiz title" @keyup.enter="nexButton" />
           <textarea v-model="json.instruction" class="form-control card-text" placeholder="Instructions" @keyup.enter="nexButton" />
         </div>
       </div>
@@ -21,7 +21,7 @@
         <div class="card-header">
           <button class="btn btn-responsive btn-outline-success btn-finish mr-2" @click="finish">Finish</button>
           <button class="btn btn-responsive btn-link btn-home ml-2" @click="backHome">Home</button>
-          <h5 class="">{{json.title}} quizz</h5>
+          <h5 class="">{{json.title}} quiz</h5>
           <h6 class="card-subtitle text-muted">Select type and add question/answers</h6>
         </div>
         <div class="card-body">
@@ -73,7 +73,7 @@
         </div>
         <b-collapse id="json-preview" accordion="my-accordion" role="tabpanel">
         <div class="card-body not-center">
-          <tree-view :data="json" :options="{maxDepth: 3, rootObjectKey:'Quizz object'}"></tree-view>
+          <tree-view :data="json" :options="{maxDepth: 3, rootObjectKey:'Quiz object'}"></tree-view>
         </div>
         </b-collapse>
       </div>
@@ -90,7 +90,7 @@ import TreeView from "vue-json-tree-view";
 Vue.use(TreeView);
 Vue.use(BootstrapVue);
 export default {
-  name: "QuizzCreation",
+  name: "QuizCreation",
   components: {},
   props: {},
   data() {
@@ -98,7 +98,7 @@ export default {
       json: {
         title: "",
         instruction: null,
-        quizz: []
+        quiz: []
       },
       part: {
         name: null,
@@ -131,7 +131,7 @@ export default {
       this.json = {
         title: "",
         instruction: null,
-        quizz: []
+        quiz: []
       };
       this.part = {
         name: null,
@@ -143,7 +143,7 @@ export default {
       this.nbPart = 0;
       if (this.$refs.inputPart) this.$refs.inputPart.disabled = false;
     },
-    // Donwload the json file when quizz is finished
+    // Donwload the json file when quiz is finished
     finish: function() {
       // this.download = "data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(this.json));
       let dataStr = JSON.stringify(this.json);
@@ -160,7 +160,7 @@ export default {
     addPart: function() {
       if (this.part.name != null) {
         this.$refs.inputPart.disabled = false;
-        this.json.quizz.push(this.part);
+        this.json.quiz.push(this.part);
         this.part = {
           name: null,
           questions: []
