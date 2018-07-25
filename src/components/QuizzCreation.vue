@@ -32,10 +32,14 @@
                           <option value="" disabled selected>Choose...</option>
                           <option value="input">Input</option>
                           <option value="radio">Radio</option>
-                        </select>
+              </select>
+              <input type="checkbox" class="form-check-input" id="image" v-model="imageCheck">
+              <label class="form-check-label" for="image">Image</label>
             </div>
             <div class="col">
-              <input v-model="question" class="form-control card-text" placeholder="Question" id="inputQuestion" ref="inputQuestion" type="text" name="question" disabled/>
+              <input v-model="question" class="form-control card-text" placeholder="Question" id="inputQuestion" ref="inputQuestion" type="text" name="question" disabled />
+              </br>
+              <input v-if="imageCheck" v-model="inputImageURL" ref="inputImageURL" id="inputImageURL" class="form-control card-text" placeholder="Image URL" type="url" name="image-url"/>
             </div>
           </div>
           <!-- QUESTION INPUT -->
@@ -105,9 +109,11 @@ export default {
       question: null,
       inputAnswers: null,
       inputProposals: null,
+      inputImageURL: null,
       next: false,
       nbQuestions: 0,
-      nbPart: 0
+      nbPart: 0,
+      imageCheck: false
     };
   },
   watch: {
@@ -179,6 +185,7 @@ export default {
         var answers = this.inputAnswers.split(",");
         question.text = this.question;
         question.type = type;
+        if (this.imageCheck) question.image = this.inputImageURL;
         if (type === "radio") question.propal = this.inputProposals.split(",");
         question.answers = answers;
         this.part.questions.push(question);
@@ -204,7 +211,7 @@ export default {
         if (this.typeQuestion === "radio")
           questionAdd = this.processAddQuestion("radio");
         if (questionAdd) {
-          this.$refs.inputPart.disabled = true;
+          if (this.part.name != null) this.$refs.inputPart.disabled = true;
           this.nbQuestions++;
         }
       } else {

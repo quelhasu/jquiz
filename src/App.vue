@@ -70,9 +70,7 @@ export default {
       quizzCreation: false
     };
   },
-  mounted: function() {
-    // console.log(this.Json.Quizz.length + " -- " + this.nbPart);
-  },
+  mounted: function() {},
   methods: {
     displayHome: function() {
       this.file = "";
@@ -82,7 +80,9 @@ export default {
       switch (filePath) {
         case "tober":
           this.file = require("../public/json/tober.json");
+          break;
       }
+      this.browseFile(this.file);
     },
     browseFile: function(json) {
       var nb_questions = 0;
@@ -90,7 +90,6 @@ export default {
         nb_questions += item.questions.length;
       });
       this.nbQuestions = nb_questions;
-      console.log(this.nbQuestions);
     },
     loadJson: function(event) {
       var file = event.target.files[0];
@@ -117,8 +116,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* margin-top: 60px; */
-  /* margin: 0 10vw; */
 }
 #content {
   margin-top: 60px;
@@ -127,9 +124,6 @@ export default {
 #available-quizz {
   padding-top: 50px;
 }
-/* .card {
-              border-radius: 0 0 0.25em 0.25em;
-            } */
 .progress {
   border-radius: 0;
 }

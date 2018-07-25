@@ -17,6 +17,10 @@
         </div>
         <b-progress height="10px" :value="passedQuestions" :max="nbQuestions"></b-progress>
         <div class="card-body">
+          <div v-if="json.quizz[nbPart].questions[nbQuestion].image">
+            <img class="card-img" :src="json.quizz[nbPart].questions[nbQuestion].image"/>
+            <br>
+          </div>
           <h5 class="card-title">{{ json.quizz[nbPart].questions[nbQuestion].text }}</h5>
           <div v-if="json.quizz[nbPart].questions[nbQuestion].type === 'input'">
             <input class="form-control card-text" placeholder="Answer" v-model="input_answer" @keyup.enter="verify" id="inputAnswer" ref="inputAnswer" type="text" name="answer" required/>
@@ -186,6 +190,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.card-title{
+  margin-top: 10px;
+}
+.card-image{
+  width: 100%
+}
 h3 {
   margin: 40px 0 0;
 }

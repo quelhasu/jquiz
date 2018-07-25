@@ -6,7 +6,8 @@
       "questions": [{
           "text": "Manger le ?",
           "type": "input",
-          "answers": ["cul"]
+          "answers": ["cul"],
+          "image": "https://images.unsplash.com/photo-1532455935509-eb76842cee50?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=91b5904019e2c1448a0609eba936ef81&auto=format&fit=crop&w=2251&q=80"
         },
         {
           "text": "Is the tober blameable?",
